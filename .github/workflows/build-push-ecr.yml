@@ -16,7 +16,21 @@ env:
   ECR_REPOSITORY: "devopstia/ecommerce-frontend"
 
 jobs:
+  sonarqube_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+
   build_push:
+    needs: sonarqube_scan
     runs-on: ubuntu-latest
 
     steps:
