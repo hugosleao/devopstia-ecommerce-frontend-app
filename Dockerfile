@@ -1,6 +1,6 @@
 FROM node:21-alpine3.18 AS builder
 WORKDIR /app
-COPY youtube-live-app/ .
+COPY devopstia-app/ .
 RUN npm ci --silent
 RUN npm run build
 RUN npm prune --omit=dev
